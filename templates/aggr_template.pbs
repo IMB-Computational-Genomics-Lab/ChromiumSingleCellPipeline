@@ -1,0 +1,29 @@
+## PBS SETTINGS
+#PBS -q normal
+#PBS -S /bin/bash
+#PBS -l select=1:ncpus=8:mem=62GB
+
+## ADJUSTABLE SETTINGS
+#PBS -N cellrangerAggr
+#PBS -l walltime=3:00:00
+#PBS -r n
+
+# Define paths
+CELLRANGER_PATH={pipeline_path}
+AGGR_SHEET={aggr_filepath}
+
+echo "Running Cell Ranger {version} on $( hostname )"
+
+OUTPUT_DIR={output_dir}
+
+ID={project_name}
+
+### SET UP ENVIRONMENT
+export PATH=${{CELLRANGER_PATH}}:$PATH
+source ${{CELLRANGER_PATH}}/sourceme.bash
+
+### GO TO OUTPUT DIRECTORY - THIS NEEDS TO EXIST
+cd $OUTPUT_DIR
+
+### RUN CELL RANGER
+cellranger aggr --id=${{ID}} --csv=${{AGGR_SHEET}} --normalize=mapped

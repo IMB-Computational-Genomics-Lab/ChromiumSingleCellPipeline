@@ -1,0 +1,32 @@
+## PBS SETTINGS
+#PBS -q normal
+#PBS -S /bin/bash
+#PBS -l select=1:ncpus=16:mem=126GB
+#PBS -N {sample}
+#PBS -l walltime=12:00:00
+#PBS -r n
+
+# Set up software environment
+CELLRANGER_PATH={pipeline_path}
+export PATH=${{CELLRANGER_PATH}}:$PATH
+source ${{CELLRANGER_PATH}}/sourceme.bash
+
+# Paths
+INPUT_DIR={fastq_dir}
+OUTPUT_DIR={output_dir}
+
+# Parse samplesheet
+SAMPLE={sample}
+ID={sample_id}
+NCELLS={ncells}
+REF_DIR={reference_dir}
+
+# Move to scratch
+cd $OUTPUT_DIR
+
+# Run Cell Ranger mkfastq
+if [ ! -f $OUTPUT_DIR/$ID/outs/metrics_summary.csv ]; then
+     cellranger count --id=${{ID}} --sample=${{SAMPLE}} --fastqs=${{INPUT_DIR}} \
+     --localmem=110 --localcores=16 --transcriptome=${{REF_DIR}} \
+     --expect-cells=${{NCELLS}} --nosecondary
+fi

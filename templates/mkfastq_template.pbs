@@ -1,0 +1,24 @@
+#!/bin/bash
+#PBS -S /bin/bash
+#PBS -q normal
+#PBS -l select=1:ncpus=8:mem=62GB
+#PBS -N mkfastq
+#PBS -l walltime=6:00:00
+
+# Set up software environment
+module load bcl2fastq/2.17
+CELLRANGER_PATH={pipeline_path}
+export PATH=${{CELLRANGER_PATH}}:$PATH
+
+# Input paths
+INPUT_DIR={input_dir}
+SAMPLESHEET_DIR={samplesheet_dir}
+FASTQ_DIR={fastq_dir}
+
+mkdir -p ${{FASTQ_DIR}}
+cd ${{FASTQ_DIR}}
+echo "Starting Cell Ranger mkfastq at $(date --date=@${{DATE}} '+%Y-%m-%d:%H:%M')"
+
+cellranger mkfastq --run=${{INPUT_DIR}} --csv=${{SAMPLESHEET_DIR}} --qc --localcores=8 --localmem=60
+
+module unload bcl2fastq/2.17
