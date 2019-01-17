@@ -8,7 +8,7 @@
       count: True
       aggr: True
   input_dir:
-    samplesheet_dir: /path/to/ExampleProjectSheet.yaml
+    samplesheet_dir: /path/to/ExampleSampleSheet.csv
     bcl_dir:
       - /path/to/bcl1
       - /path/to/bcl2
