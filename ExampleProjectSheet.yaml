@@ -1,0 +1,18 @@
+---
+  project_name: Example_Project
+  pipeline:
+    name: cellranger
+    version: 2.2.0
+    stages:
+      mkfastq: True
+      count: True
+      aggr: True
+  input_dir:
+    samplesheet_dir: /path/to/ExampleProjectSheet.yaml
+    bcl_dir:
+      - /path/to/bcl1
+      - /path/to/bcl2
+    fastq_dir: /output/fastqs/here
+    reference_dir: /my/cellranger/reference
+  output_dir: /output/cellranger/data/here
+...

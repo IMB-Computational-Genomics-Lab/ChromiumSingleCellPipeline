@@ -1,0 +1,13 @@
+---
+### Software paths
+pipelines:
+  cellranger:
+    version 2.1.0: /shares/powell/pipelines/cellranger-2.1.0
+    version 2.2.0: /shares/powell/pipelines/cellranger-2.2.0
+    version 3.0.0: /shares/powell/pipelines/cellranger-3.0.0
+    version 3.0.2: /shares/powell/pipelines/cellranger-3.0.2
+  dropseq:
+    version 2.1.0: /shares/powell/pipelines/dropseq
+software:
+  picard: /path/to/picard
+...
